@@ -30,6 +30,11 @@
 		</dependency>
 	</dependencies>
 
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/MTrackJ/</url>
+	</ciManagement>
+
 	<scm>
 		<connection>scm:git:git://github.com/fiji/MTrackJ</connection>
 		<developerConnection>scm:git:git@github.com:fiji/MTrackJ</developerConnection>
