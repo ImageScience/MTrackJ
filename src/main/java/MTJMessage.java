@@ -1,6 +1,19 @@
-import java.awt.*;
-import java.awt.event.*;
-import ij.gui.*;
+import ij.gui.GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class MTJMessage extends Dialog implements ActionListener, KeyListener, WindowListener {
 	

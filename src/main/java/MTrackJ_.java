@@ -1,7 +1,6 @@
 // *************************************************************************************************
 import ij.CompositeImage;
 import ij.IJ;
-import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.Prefs;
@@ -31,6 +30,7 @@ import imagescience.utility.I5DResource;
 import imagescience.utility.ImageScience;
 import imagescience.utility.MouseCursor;
 import imagescience.utility.Progressor;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Button;
@@ -50,8 +50,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Label;
-import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -77,7 +75,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 // *************************************************************************************************
