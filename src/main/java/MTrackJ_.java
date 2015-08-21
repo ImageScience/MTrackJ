@@ -1,6 +1,7 @@
 // *************************************************************************************************
 import ij.CompositeImage;
 import ij.IJ;
+import ij.ImageJ;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.Prefs;
@@ -21,16 +22,15 @@ import ij.process.ImageProcessor;
 import ij.process.ShortProcessor;
 import ij.text.TextPanel;
 import ij.text.TextWindow;
+import imagescience.ImageScience;
 import imagescience.array.DoubleArray;
 import imagescience.color.Palette;
 import imagescience.color.Wave2Color;
 import imagescience.utility.FMath;
 import imagescience.utility.Formatter;
 import imagescience.utility.I5DResource;
-import imagescience.utility.ImageScience;
 import imagescience.utility.MouseCursor;
 import imagescience.utility.Progressor;
-
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Button;
@@ -50,6 +50,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -75,6 +77,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 // *************************************************************************************************
@@ -174,7 +177,7 @@ public class MTrackJ_ implements PlugIn {
 final class MTrackJ implements WindowListener {
 	
 	final static String NAME = "MTrackJ";
-	final static String VERSION = "1.5.0";
+	final static String VERSION = "1.5.1";
 	
 	private final static String COPYRIGHT = NAME+" "+VERSION+" (C) Erik Meijering";
 	
@@ -1736,7 +1739,7 @@ final class MTJHandler extends Roi implements MouseListener, MouseMotionListener
 	private int mode = INIT;
 	
 	private final static Cursor arrowcursor = makecursor(MouseCursor.ARROW);
-	private final static Cursor crosscursor = makecursor(MouseCursor.CROSSHAIR);
+	private final static Cursor crosscursor = makecursor(MouseCursor.PLUS);
 	private final static Cursor magnicursor = makecursor(MouseCursor.MAGNIFIER);
 	private final static Cursor handycursor = makecursor(MouseCursor.HAND);
 	
@@ -1815,7 +1818,7 @@ final class MTJHandler extends Roi implements MouseListener, MouseMotionListener
 		Cursor cursor = null;
 		switch (which) {
 			case MouseCursor.ARROW: cursor = arrowcursor; break;
-			case MouseCursor.CROSSHAIR: cursor = crosscursor; break;
+			case MouseCursor.PLUS: cursor = crosscursor; break;
 			case MouseCursor.MAGNIFIER: cursor = magnicursor; break;
 			case MouseCursor.HAND: cursor = handycursor; break;
 		}
@@ -1843,7 +1846,7 @@ final class MTJHandler extends Roi implements MouseListener, MouseMotionListener
 		final MouseCursor mc = new MouseCursor();
 		switch(type) {
 			case MouseCursor.ARROW: cursor = mc.create(MouseCursor.ARROW); break;
-			case MouseCursor.CROSSHAIR: cursor = mc.create(MouseCursor.CROSSHAIR); break;
+			case MouseCursor.PLUS: cursor = mc.create(MouseCursor.PLUS); break;
 			case MouseCursor.MAGNIFIER: cursor = mc.create(MouseCursor.MAGNIFIER); break;
 			case MouseCursor.HAND: cursor = mc.create(MouseCursor.HAND); break;
 		}
@@ -4270,7 +4273,7 @@ final class MTJDialog extends PlugInFrame implements ActionListener, MouseListen
 			case HELP: {
 				try {
 					mtrackj.log("Opening default browser with online "+mtrackj.name()+" manual");
-					BrowserLauncher.openURL("http://www.imagescience.org/meijering/software/mtrackj/manual.html");
+					BrowserLauncher.openURL("http://www.imagescience.org/meijering/software/mtrackj/manual/");
 					mtrackj.status("Opened manual");
 				} catch (Throwable anye) {
 					mtrackj.error("Could not open default internet browser");
@@ -5184,8 +5187,8 @@ final class MTJProducer extends Thread {
 		final MTJSettings settings = mtrackj.settings();
 		assembly.lock();
 		
-		mtrackj.status("Producing movie...");
 		final Progressor pgs = new Progressor();
+		pgs.status("Producing movie...");
 		pgs.display(true);
 		
 		try {
@@ -5392,8 +5395,8 @@ final class MTJMeasurer extends Thread {
 		final MTJSettings settings = mtrackj.settings();
 		assembly.lock();
 		
-		mtrackj.status("Performing measurements...");
 		final Progressor pgs = new Progressor();
+		pgs.status("Performing measurements...");
 		pgs.display(true);
 		
 		try {
@@ -6245,8 +6248,8 @@ final class MTJReader extends Thread {
 		BufferedReader br = null;
 		final String opmode = (mode == LOAD) ? "Load" : "Import";
 		
-		mtrackj.status(opmode+"ing from \""+file+"\"...");
 		final Progressor pgs = new Progressor();
+		pgs.status(opmode+"ing from \""+file+"\"...");
 		pgs.display(true);
 		
 		try {
@@ -6452,8 +6455,8 @@ final class MTJWriter extends Thread {
 		final MTJAssembly assembly = handler.assembly();
 		assembly.lock();
 		
-		mtrackj.status("Saving to \""+file+"\"...");
 		final Progressor pgs = new Progressor();
+		pgs.status("Saving to \""+file+"\"...");
 		pgs.display(true);
 		
 		try {
