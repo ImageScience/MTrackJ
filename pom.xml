@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>MTrackJ_</artifactId>
-	<version>1.5.4</version>
+	<version>1.5.5-SNAPSHOT</version>
 
 	<name>plugins/MTrackJ_.jar</name>
 	<description />
